@@ -13,8 +13,6 @@ public class App {
 		System.out.println();
 	}
 	
-	
-
 	public static void main(String[] args) {
 		
 		Scanner sc =  new Scanner(System.in);
@@ -34,7 +32,7 @@ public class App {
 					System.out.println();
 					System.out.print("Enter Yout Choice :");
 					choice = sc.nextInt();
-
+					sc.nextLine();
 			switch (choice) {
 			case 1:
 				try {

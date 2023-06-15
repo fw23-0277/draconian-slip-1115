@@ -1,11 +1,12 @@
 package com.masai.ui;
 
-import java.awt.print.Book;
+
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import com.masai.Entity.Book;
 import com.masai.Exception.InvalidCredential;
+import com.masai.Exception.NoRecordFoundException;
 import com.masai.Exception.SomethingWentWrong;
 import com.masai.service.BookService;
 import com.masai.service.IBookService;
@@ -55,7 +56,8 @@ public class AddminUi {
 				System.out.print("Enter Your Choice :");
 				choice = sc.nextInt();
 				switch(choice) {
-				case 1 : 
+				case 1 :
+					viewAllBooks();
 					break;
 				case 2 :
 					addBook(sc);
@@ -75,7 +77,7 @@ public class AddminUi {
 		}
 	
 		static void  addBook(Scanner sc) {
-			System.out.println("Enter Book Title :");
+			System.out.print("Enter Book Title :");
 			String title  = sc.next();
 			System.out.print("Enter Book Author : ");
 			String author = sc.next();
@@ -87,10 +89,22 @@ public class AddminUi {
 			IBookService bookService = new BookService();
 			
 			Book book = new Book(title, author, genre, quantity);
+			try {
+				String result = bookService.addBook(book);
+				System.out.println(result);
+			} catch (SomethingWentWrong e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+			
+		}
+		
+		static void viewAllBooks() {
+			IBookService bookService = new BookService();
 			
 			try {
-				bookService.addBook();
-			} catch (SomethingWentWrong e) {
+				bookService.viewAllBooks();
+			} catch (NoRecordFoundException | SomethingWentWrong e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
 			}
